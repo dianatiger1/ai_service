@@ -1,0 +1,28 @@
+NEW_FILE_CODE
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Database & Logs
+*.db
+*.log
+test.db
+
+# Environment Variables (最重要！)
+.env
+
+# OS
+.DS_Store
+Thumbs.db
