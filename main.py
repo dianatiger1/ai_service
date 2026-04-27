@@ -1,11 +1,9 @@
 from pydantic import BaseModel
-from fastapi import FastAPI, HTTPException, Security, Depends ,File, UploadFile, Response
-from PIL import Image
+from fastapi import FastAPI, Security, File, UploadFile, Response
 import io
 from fastapi.security.api_key import APIKeyHeader
 import httpx
 from fastapi.responses import StreamingResponse
-from fastapi import APIRouter
 import json
 from abc import ABC, abstractmethod
 from PIL import Image
@@ -13,7 +11,7 @@ from fastapi import Depends, HTTPException
 from sqlalchemy.orm import Session
 from database import get_db, UserRecord
 import os
-
+from ai_answer.router import router as paper_qa_router
 
 # 定义 Header 中 API Key 的键名
 API_KEY_NAME = "SYJ-API-Key"
@@ -32,6 +30,9 @@ async def get_api_key(api_key: str = Security(api_key_header)):
 
 # 初始化 FastAPI 实例
 app = FastAPI(title="我的第一个微服务")
+
+# 注册论文问答路由
+app.include_router(paper_qa_router)
 
 @app.get("/data")
 async def get_private_data(api_key: str = Depends(get_api_key)):
